@@ -2,7 +2,8 @@ import React from "react"
 import { useStaticQuery, graphql } from "gatsby"
 
 const getData = graphql`
-  {
+  # query名はuniqueでなければならない, query QueryName (args)
+  query FirstQuery {
     site {
       info: siteMetadata {
         person {
