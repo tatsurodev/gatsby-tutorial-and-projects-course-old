@@ -4,6 +4,7 @@ import Layout from '../components/Layout'
 import Posts from '../components/Posts'
 import { graphql } from 'gatsby'
 import SEO from '../components/SEO'
+import { RegVideo } from '../components/Complete'
 
 const IndexPage = ({ data }) => {
   const {
@@ -13,6 +14,7 @@ const IndexPage = ({ data }) => {
   return (
     <Layout>
       <Hero showPerson />
+      <RegVideo />
       <Posts posts={posts} title="recently published" />
     </Layout>
   )
