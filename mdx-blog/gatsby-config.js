@@ -1,4 +1,12 @@
 module.exports = {
+  siteMetadata: {
+    title: `Gatsby MSX Blog`,
+    description: `Awesome Blog built with Gatsby and MDX`,
+    titleTemplate: `%s | MDX Blog`,
+    url: `https://kind-agnesi-9278b0.netlify.app`,
+    image: `mainImg.png`,
+    twitterUsername: `@john_smilga`,
+  },
   plugins: [
     // `gatsby-plugin-mdx`,
     `gatsby-plugin-react-helmet`,
