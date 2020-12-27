@@ -43,18 +43,17 @@ module.exports = {
     //   },
     // },
     {
-      resolve: `gatsby-plugin-prefetch-google-fonts`,
+      resolve: `gatsby-source-airtable`,
       options: {
-        fonts: [
+        apiKey: process.env.GATSBY_AIRTABLE_API,
+        concurrency: 5,
+        tables: [
           {
-            family: `Roboto`,
-            variants: [`400`, `500`, `700`],
-          },
-          {
-            family: `Open Sans`,
-          },
-          {
-            family: `Caveat`,
+            baseId: process.env.GATSBY_AIRTABLE_BASE_ID,
+            tableName: `Projects`,
+            mapping: {
+              image: `fileNode`,
+            },
           },
         ],
       },
