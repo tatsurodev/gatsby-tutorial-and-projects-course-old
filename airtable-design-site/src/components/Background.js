@@ -15,7 +15,7 @@ const query = graphql`
   }
 `
 
-const Background = ({ children }) => {
+const Background = ({ children, image }) => {
   const {
     file: {
       childImageSharp: { fluid },
@@ -26,7 +26,8 @@ const Background = ({ children }) => {
     <Wrapper>
       <BackgroundImage
         Tag="div"
-        fluid={fluid}
+        // propsでimageが渡されていたらそれを使用、なければqueryから取得
+        fluid={image || fluid}
         className="bcg"
         preserveStackingContext={true}
       >
