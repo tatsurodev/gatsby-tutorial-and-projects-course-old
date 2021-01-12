@@ -34,7 +34,18 @@ const Slider = () => {
     allAirtable: { nodes: customers },
   } = useStaticQuery(query)
   const [index, setIndex] = React.useState(0)
-  // more logic
+  // slideのloopを設定
+  React.useEffect(() => {
+    const lastIndex = customers.length - 1
+    // indexが0以下で最後のslideへ
+    if (index < 0) {
+      setIndex(lastIndex)
+    }
+    // indexが最後のindex以上で最初のslideへ
+    if (index > lastIndex) {
+      setIndex(0)
+    }
+  }, [index, customers])
 
   return (
     <Wrapper className="section">
@@ -49,7 +60,13 @@ const Slider = () => {
           if (customerIndex === index) {
             position = "activeSlide"
           }
-          // more logic
+          if (
+            customerIndex === index - 1 ||
+            (index === 0 && customerIndex === customers.length - 1)
+          ) {
+            position = "lastSlide"
+          }
+
           return (
             <article className={position} key={customerIndex}>
               <Image fixed={customerImg} className="img" />
@@ -60,6 +77,12 @@ const Slider = () => {
             </article>
           )
         })}
+        <button className="prev" onClick={() => setIndex(index - 1)}>
+          <FiChevronLeft />
+        </button>
+        <button className="next" onClick={() => setIndex(index + 1)}>
+          <FiChevronRight />
+        </button>
       </div>
     </Wrapper>
   )
