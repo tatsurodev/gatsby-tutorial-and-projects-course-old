@@ -4,9 +4,28 @@ import styled from "styled-components"
 import base from "./Airtable"
 import { FaVoteYea } from "react-icons/fa"
 
-console.log(base)
-
 const Survey = () => {
+  const [items, setItems] = useState([])
+  const [loading, setLoading] = useState(true)
+
+  const getRecords = async () => {
+    const records = await base("Survey")
+      .select({})
+      .firstPage()
+      .catch(err => console.log(err))
+    const newItems = records.map(record => {
+      const { id, fields } = record
+      return { id, fields }
+    })
+    setItems(newItems)
+    setLoading(false)
+  }
+
+  useEffect(() => {
+    getRecords()
+  }, [])
+
+  console.log(items)
   return <h2>survey component</h2>
 }
 
