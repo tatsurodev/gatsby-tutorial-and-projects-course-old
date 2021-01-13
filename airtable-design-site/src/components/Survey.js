@@ -21,6 +21,31 @@ const Survey = () => {
     setLoading(false)
   }
 
+  const giveVote = async id => {
+    setLoading(true)
+    // 更新用surveyを作成
+    const tempItems = [...items].map(item => {
+      if (item.id === id) {
+        let { id, fields } = item
+        fields = { ...fields, votes: fields.votes + 1 }
+        return { id, fields }
+      } else {
+        return item
+      }
+    })
+    // surveyを更新
+    const records = await base("Survey")
+      .update(tempItems)
+      .catch(err => console.log(err))
+    // stateを更新
+    const newItems = records.map(record => {
+      const { id, fields } = record
+      return { id, fields }
+    })
+    setItems(newItems)
+    setLoading(false)
+  }
+
   useEffect(() => {
     getRecords()
   }, [])
@@ -48,7 +73,7 @@ const Survey = () => {
                     <h4>{name}</h4>
                     <p>{votes} votes</p>
                   </div>
-                  <button onClick={() => console.log("you clicked me")}>
+                  <button onClick={() => giveVote(id)}>
                     <FaVoteYea />
                   </button>
                 </li>
